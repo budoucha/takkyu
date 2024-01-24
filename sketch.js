@@ -49,7 +49,7 @@ new p5(p => {
         setTimeout(bounce, 400);
         setTimeout(checkFall, 900);
         hasFell = false;
-        fallSound.stop(); //stop even in playing
+        fallSound.stop(); //cancel fall at hit
     }
 
     bounce = () => {
@@ -75,9 +75,5 @@ new p5(p => {
         if (p.accelerationZ == 0) {
             hitBall();
         }
-    }
-
-    p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight)
     }
 });
