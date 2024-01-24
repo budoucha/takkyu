@@ -24,19 +24,19 @@ new p5(p => {
     p.draw = () => {
         const acceleration_norm = p.sqrt(p.sq(p.accelerationZ) + p.sq(p.accelerationX) + p.sq(p.accelerationY));
         norm_max = (norm_max < acceleration_norm) ? acceleration_norm : norm_max;
-        
+
         const hitConditions = [
-            p.accelerationZ > 60, // フォアハンド
-            p.accelerationZ > 20 && acceleration_norm > 65, // カット
-            p.accelerationZ < -80, // バックハンド
-        ]
+            p.accelerationZ > 90 && acceleration_norm > 120, // フォアハンド
+            Math.abs(p.accelerationX) > 80 && acceleration_norm > 140,
+            p.accelerationZ < -80 && acceleration_norm > 140// バックハンド
+        ];
 
         // hit
         if (hitConditions.some(cond => cond)) {
             if (!isLocked) {
                 hitBall();
                 isLocked = true;
-                setTimeout(unlock, 400);
+                setTimeout(unlock, 600);
             }
         }
     }
