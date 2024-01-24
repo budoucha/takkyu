@@ -32,12 +32,10 @@ new p5(p => {
         ];
 
         // hit
-        if (hitConditions.some(cond => cond)) {
-            if (!isLocked) {
-                hitBall();
-                isLocked = true;
-                setTimeout(unlock, 600);
-            }
+        if (!isLocked && hitConditions.some(cond => cond)) {
+            hitBall();
+            isLocked = true;
+            setTimeout(unlock, 600);
         }
     }
 
