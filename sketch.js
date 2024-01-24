@@ -39,7 +39,7 @@ new p5(p => {
             hitBall();
             isLocked = true;
             setTimeout(unlock, 600);
-            if (p.accelerationZ > 150 &&acceleration_norm > 216) {
+            if (p.accelerationZ > 128 && p.accelerationY < -128) {
                 smash();
             }
         }
