@@ -45,7 +45,7 @@ new p5(p => {
         }
     }
 
-    hitBall = () => {
+    const hitBall = () => {
         hitSound.setVolume(1.0);
         hitSound.play();
         setTimeout(vib(60), 75);
@@ -55,36 +55,35 @@ new p5(p => {
         fallSound.stop(); //cancel fall at hit
     }
 
-    smash = () => {
+    const smash = () => {
         bombSound.setVolume(1.0);
         bombSound.play();
         vib(800)
     }
 
-    vib = (duration) => {
+    const vib = (duration) => {
         window.navigator.vibrate(0);
         window.navigator.vibrate(duration);
     }
 
-    bounce = () => {
+    const bounce = () => {
         hitSound.setVolume(0.4);
         hitSound.play();
         hasFell = true;
     }
 
-    checkFall = () => {
+    const checkFall = () => {
         if (hasFell) {
             fallSound.setVolume(1.0);
             fallSound.play();
         }
     }
 
-    unlock = () => {
+    const unlock = () => {
         isLocked = false;
     }
 
     p.mousePressed = () => {
-        const h1 = document.querySelector('h1');
         document.querySelector('p.start').style.visibility = "hidden";
         if (p.accelerationZ == 0) {
             hitBall();
