@@ -10,14 +10,10 @@ new p5(p => {
         hitSound.playMode('sustain');
         fallSound.setVolume(1.0);
         fallSound.playMode('restart');
-
     }
 
     p.setup = () => {
         p.pixelDensity(1);
-        const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('canvas-container');
-
         p.outputVolume(1.0);
 
         hasHit = false;
@@ -27,10 +23,6 @@ new p5(p => {
     }
 
     p.draw = () => {
-        p.background(216, 0, 0);
-        p.fill(216, 168, 128);
-        p.rect(0, p.height * 4 / 5, p.width, p.height * 4 / 5);
-
         const acceleration_norm = p.sqrt(p.sq(p.accelerationZ) + p.sq(p.accelerationX) + p.sq(p.accelerationY));
         norm_max = (norm_max < acceleration_norm) ? acceleration_norm : norm_max;
 
