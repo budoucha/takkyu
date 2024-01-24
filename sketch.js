@@ -6,10 +6,13 @@ new p5(p => {
     p.preload = () => {
         hitSound = p.loadSound("assets/table-tennis-ball.mp3");
         fallSound = p.loadSound("assets/table-tennis-ball_fall.mp3");
+        bombSound = p.loadSound("assets/explosion.mp3");
         hitSound.setVolume(1.0);
         hitSound.playMode('sustain');
         fallSound.setVolume(1.0);
         fallSound.playMode('restart');
+        bombSound.setVolume(1.0);
+        bombSound.playMode('sustain');
     }
 
     p.setup = () => {
@@ -36,18 +39,31 @@ new p5(p => {
             hitBall();
             isLocked = true;
             setTimeout(unlock, 600);
+            if (p.accelerationZ > 150 &&acceleration_norm > 216) {
+                smash();
+            }
         }
     }
 
     hitBall = () => {
         hitSound.setVolume(1.0);
         hitSound.play();
-        const vib = () => { window.navigator.vibrate(60); }
-        setTimeout(vib, 75);
+        setTimeout(vib(60), 75);
         setTimeout(bounce, 400);
         setTimeout(checkFall, 900);
         hasFell = false;
         fallSound.stop(); //cancel fall at hit
+    }
+
+    smash = () => {
+        bombSound.setVolume(1.0);
+        bombSound.play();
+        vib(800)
+    }
+
+    vib = (duration) => {
+        window.navigator.vibrate(0);
+        window.navigator.vibrate(duration);
     }
 
     bounce = () => {
