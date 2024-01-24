@@ -25,8 +25,15 @@ new p5(p => {
     p.draw = () => {
         const acceleration_norm = p.sqrt(p.sq(p.accelerationZ) + p.sq(p.accelerationX) + p.sq(p.accelerationY));
         norm_max = (norm_max < acceleration_norm) ? acceleration_norm : norm_max;
+        
+        const triggerConditions = [
+            p.accelerationZ > 60, // フォアハンド
+            p.accelerationZ > 20 && acceleration_norm > 65, // カット
+            p.accelerationZ < -80, // バックハンド
+        ]
 
-        if (p.accelerationZ > 45 || (p.accelerationZ > 30 && acceleration_norm > 50)) {
+        // hit
+        if (triggerConditions.some(cond => cond)) {
             if (!hasHit) {
                 hitBall();
                 hasHit = true;
