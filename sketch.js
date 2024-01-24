@@ -1,5 +1,5 @@
 new p5(p => {
-    let hasHit, hasFell, isLocked;
+    let hasFell, isLocked;
     let hitSound, fallSound;
     let norm_max;
 
@@ -16,7 +16,6 @@ new p5(p => {
         p.pixelDensity(1);
         p.outputVolume(1.0);
 
-        hasHit = false;
         hasFell = false;
         isLocked = false;
         norm_max = 0;
@@ -26,24 +25,18 @@ new p5(p => {
         const acceleration_norm = p.sqrt(p.sq(p.accelerationZ) + p.sq(p.accelerationX) + p.sq(p.accelerationY));
         norm_max = (norm_max < acceleration_norm) ? acceleration_norm : norm_max;
         
-        const triggerConditions = [
+        const hitConditions = [
             p.accelerationZ > 60, // フォアハンド
             p.accelerationZ > 20 && acceleration_norm > 65, // カット
             p.accelerationZ < -80, // バックハンド
         ]
 
         // hit
-        if (triggerConditions.some(cond => cond)) {
-            if (!hasHit) {
+        if (hitConditions.some(cond => cond)) {
+            if (!isLocked) {
                 hitBall();
-                hasHit = true;
                 isLocked = true;
                 setTimeout(unlock, 400);
-            }
-        }
-        else {
-            if (isLocked == false) {
-                hasHit = false;
             }
         }
     }
